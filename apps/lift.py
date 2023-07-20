@@ -5,7 +5,7 @@ from applications.srv import lift_command
 
 
 def Up_Down(request):
-    if (request.estimated_floor < 6) and (istek.hedef_kat > 0):
+    if (request.estimated_floor < 6) and (istek.estimated_floor > 0):
         answer = "Lifted up".format(request.floor)
         return answer
 
