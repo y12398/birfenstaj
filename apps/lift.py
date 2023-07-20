@@ -5,7 +5,7 @@ from applications.srv import lift_command
 
 
 def Up_Down(request):
-    if (request.estimated_floor < 6) and (request.estimated_floor > 0):
+    if (request.estimated_floor < 4) and (request.estimated_floor > 0):
         answer = "Lifted up".format(request.floor)
         return answer
 
