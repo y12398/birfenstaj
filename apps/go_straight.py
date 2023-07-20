@@ -9,7 +9,7 @@ def movement():
     pub = rospy.Publisher("cmd_vel",Twist,queue_size=10)
     speed_message = Twist()
     speed_message.linear.x = 0.5
-    distance =1
+    distance = 1.5
     change_place = 0
     t0 = rospy.Time.now().to_sec()
     
