@@ -11,9 +11,6 @@ def draw_shape(shape):
 
     vel_msg = Twist()
 
-    
-
-   
     if shape == 'square':
         for _ in range(4):
             rospy.sleep(0.5)
@@ -26,7 +23,7 @@ def draw_shape(shape):
             vel_msg.angular.z = 1.570796  
             velocity_publisher.publish(vel_msg)
             rospy.sleep(1)
-    elif shape == 'circle':
+    if shape == 'circle':
         rospy.sleep(0.5)
         vel_msg.linear.x = 1
         vel_msg.angular.z = 0.523598  
@@ -34,7 +31,7 @@ def draw_shape(shape):
             velocity_publisher.publish(vel_msg)
             rospy.sleep(1)
 
-    elif shape == 'triangle':
+    if shape == 'triangle':
         for _ in range(3):
             rospy.sleep(0.5)
             vel_msg.linear.x = 2
@@ -48,27 +45,19 @@ def draw_shape(shape):
             rospy.sleep(1)
     
 def change_background_color_client():
+ rospy.wait_for_service('/clear')
 
+ try: 
+ rospy.set_param('/turtlesim/background_r', random.randint(0, 255))
+ rospy.set_param('/turtlesim/background_g', random.randint(0, 255))
+ rospy.set_param('/turtlesim/background_b', random.randint(0, 255))
+ change_background_color = rospy.ServiceProxy('/clear', Empty)
 
-          rospy.wait_for_service('/clear')
+resp = change_background_color()
 
-          try: 
-
-            rospy.set_param('/turtlesim/background_r', random.randint(0, 255))
-            rospy.set_param('/turtlesim/background_g', random.randint(0, 255))
-            rospy.set_param('/turtlesim/background_b', random.randint(0, 255))
-
-            change_background_color = rospy.ServiceProxy('/clear', Empty)
-
-            resp = change_background_color()
-
-            return resp
-
-          except rospy.ServiceException as e:   
-           
-           rospy.loginfo("error changing background color:", str(e))
-
-
+return resp 
+except rospy.ServiceException as e:   
+rospy.loginfo("error changing background color:", str(e))
 
 if __name__ == '__main__':
     shape = input("type the shape (square/circle/triangle): ")
