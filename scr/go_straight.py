@@ -3,7 +3,6 @@
 import rospy
 from geometry_msgs.msg import Twist
 
-
 def movement():
     rospy.init_node("go_straight")
     pub = rospy.Publisher("cmd_vel",Twist,queue_size=10)
