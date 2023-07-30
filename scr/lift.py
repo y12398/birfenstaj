@@ -3,7 +3,6 @@
 import rospy
 from applications.srv import lift_command
 
-
 def Up_Down(request):
     if (request.estimated_floor < 4) and (request.estimated_floor > 0):
         answer = "Lifted up".format(request.floor)
